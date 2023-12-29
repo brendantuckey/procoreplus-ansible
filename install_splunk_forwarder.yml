@@ -1,0 +1,26 @@
+---
+- name: Install Splunk Forwarder
+  hosts: all
+  become: yes  # Use sudo privileges
+
+  tasks:
+    - name: Upload Splunk .rpm
+      copy:
+        src: upload-files/splunkforwarder-9.1.2-b6b9c8185839.x86_64.rpm
+        dest: /home/ec2-user/splunkforwarder-9.1.2-b6b9c8185839.x86_64.rpm
+
+    - name: Install RPM package and create $SPLUNK_HOME
+      shell: rpm -i /home/ec2-user/splunkforwarder-9.1.2-b6b9c8185839.x86_64.rpm
+
+    - name: Upload inputs.conf
+      copy:
+        src: upload-files/inputs.conf
+        dest: $SPLUNK_HOME/etc/system/local/inputs.conf
+
+    - name: Upload outputs.conf
+      copy:
+        src: upload-files/inputs.conf
+        dest: $SPLUNK_HOME/etc/system/local/inputs.conf
+
+    - name: Start Splunk
+      shell: $SPLUNK_HOME/bin/splunk start --accept-license
