@@ -9,14 +9,6 @@
         name: pexpect
       become: yes
 
-    - name: Upload Splunk .rpm
-      copy:
-        src: upload-files/splunkforwarder-9.1.2-b6b9c8185839.x86_64.rpm
-        dest: /home/ec2-user/splunkforwarder-9.1.2-b6b9c8185839.x86_64.rpm
-
-    - name: Install RPM package and create /opt/splunkforwarder
-      shell: rpm -i /home/ec2-user/splunkforwarder-9.1.2-b6b9c8185839.x86_64.rpm
-
     - name: Upload inputs.conf
       copy:
         src: upload-files/inputs.conf
@@ -40,4 +32,3 @@
       command:
         /opt/splunkforwarder/bin/splunk status
       register: service_splunk_status
-    
