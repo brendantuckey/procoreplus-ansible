@@ -1,0 +1,25 @@
+---
+- name: Install CloudWatch Agent
+  hosts: all
+  become: yes  # Use sudo privileges
+
+  tasks:
+    - name: Download CloudWatch Agent installer
+      get_url:
+        url: https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+        dest: ./amazon-cloudwatch-agent.rpm
+        mode: '0644'
+
+    - name: Install CloudWatch Agent
+      shell: sudo rpm -U ./amazon-cloudwatch-agent.rpm
+
+    - name: Copy config file
+      copy:
+        src: config.json
+        dest: /home/ec2-user/config.json
+
+    - name: Moving config
+      shell: sudo mv /home/ec2-user/config.json /opt/aws/amazon-cloudwatch-agent/bin
+
+    - name: Starting cwagent
+      shell: sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
