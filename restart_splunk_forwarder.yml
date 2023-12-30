@@ -1,0 +1,14 @@
+---
+- name: Restart Splunk Forwarder
+  hosts: all
+  become: yes  # Use sudo privileges
+
+  tasks:
+    - name: Restart Splunk forwarder service.
+      command: /opt/splunkforwarder/bin/splunk restart
+    
+    - name: Check Splunk forwarder service.
+      command:
+        /opt/splunkforwarder/bin/splunk status
+      register: service_splunk_status
+    

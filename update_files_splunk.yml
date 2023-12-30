@@ -1,0 +1,24 @@
+---
+- name: Restart Splunk Forwarder
+  hosts: all
+  become: yes  # Use sudo privileges
+
+  tasks:
+    - name: Upload inputs.conf
+      copy:
+        src: upload-files/inputs.conf
+        dest: /opt/splunkforwarder/etc/system/local/inputs.conf
+
+    - name: Upload outputs.conf
+      copy:
+        src: upload-files/outputs.conf
+        dest: /opt/splunkforwarder/etc/system/local/outputs.conf
+        
+    - name: Restart Splunk forwarder service.
+      command: /opt/splunkforwarder/bin/splunk restart
+    
+    - name: Check Splunk forwarder service.
+      command:
+        /opt/splunkforwarder/bin/splunk status
+      register: service_splunk_status
+    

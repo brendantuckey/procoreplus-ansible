@@ -16,8 +16,8 @@
 
     - name: Upload outputs.conf
       copy:
-        src: upload-files/inputs.conf
-        dest: /opt/splunkforwarder/etc/system/local/inputs.conf
+        src: upload-files/outputs.conf
+        dest: /opt/splunkforwarder/etc/system/local/outputs.conf
 
     - name: Start Splunk forwarder service.
       expect:
