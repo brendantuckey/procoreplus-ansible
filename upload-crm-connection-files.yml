@@ -1,0 +1,14 @@
+---
+- name: Upload crm database connection file
+  hosts: all
+  become: yes  # Use sudo privileges
+  tasks:
+    - name: Upload to /var/www/html/crm/dbconnection.php
+      copy:
+        src: upload-files/dbconnection.php
+        dest: /var/www/html/crm/dbconnection.php
+
+    - name: Upload to /var/www/html/crm/admin/dbconnection.php
+      copy:
+        src: upload-files/dbconnection.php
+        dest: /var/www/html/crm/admin/dbconnection.php

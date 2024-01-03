@@ -1,0 +1,9 @@
+---
+- name: Upload directory contents
+  hosts: all
+  become: yes  # Use sudo privileges
+  tasks:
+    - name: Synchronize local ariclaw source code directory to EFS directory on remote host
+      synchronize:
+        src: ../ariclaw-master/
+        dest: /mnt/efs/fs1/efs-html/

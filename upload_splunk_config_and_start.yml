@@ -1,5 +1,5 @@
 ---
-- name: Install Splunk Forwarder
+- name: Upload Splunk Config files and start
   hosts: all
   become: yes  # Use sudo privileges
 

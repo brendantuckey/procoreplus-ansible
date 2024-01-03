@@ -1,0 +1,9 @@
+---
+- name: Upload directory contents
+  hosts: all
+  become: yes  # Use sudo privileges
+  tasks:
+    - name: Synchronize local crm directory to apache directory on remote host
+      synchronize:
+        src: ../crm-upload/
+        dest: /var/www/html/crm/
